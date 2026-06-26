@@ -1,0 +1,6 @@
+{
+  "name": "Café de Especialidad - Tienda y Suscripción",
+  "description": "Tienda en línea de café en grano de especialidad con sistema de suscripción mensual personalizable.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

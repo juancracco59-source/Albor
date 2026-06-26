@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Specialty Coffee Palette */
+  --color-coffee-50: #FAF7F2;   /* Creamy warm off-white */
+  --color-coffee-100: #F3EFE6;  /* Soft cardboard/linen */
+  --color-coffee-200: #E6DBC5;  /* Sandy clay */
+  --color-coffee-300: #D2BE99;  /* Light roast latte */
+  --color-coffee-400: #B79A70;  /* Cinnamon roast */
+  --color-coffee-500: #937047;  /* Medium roast */
+  --color-coffee-600: #785333;  /* Full city roast */
+  --color-coffee-700: #5C3D24;  /* Dark chocolate / espresso */
+  --color-coffee-800: #3E2614;  /* Burnt coffee / deep charcoal */
+  --color-coffee-900: #201207;  /* Obsidian black roasted bean */
+  --color-coffee-950: #0E0703;  /* Ultimate black */
+
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+}
+
+/* Custom global styles to maintain a premium feel */
+body {
+  background-color: #FAF7F2;
+  color: #201207;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #D2BE99;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B79A70;
+}
+
+/* Custom utilities for elegant transitions and backgrounds */
+.bg-mesh {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(230, 219, 197, 0.3) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(147, 112, 71, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(210, 190, 153, 0.2) 0px, transparent 50%);
+}
+
+.coffee-card-glow {
+  box-shadow: 0 4px 30px rgba(120, 83, 51, 0.03);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coffee-card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(120, 83, 51, 0.08);
+}
