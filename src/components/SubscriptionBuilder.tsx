@@ -135,9 +135,9 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <span className="font-mono text-xs text-coffee-500 uppercase tracking-[0.25em] font-semibold">CLUB DE CAFÉ DE ESPECIALIDAD</span>
-        <h1 className="font-serif text-4xl font-bold text-coffee-900 mt-2">Configura tu Suscripción Mensual</h1>
-        <p className="text-coffee-600 mt-3 font-sans leading-relaxed">
+        <span className="font-mono text-xs text-coffee-500 dark:text-coffee-400 uppercase tracking-[0.25em] font-semibold">CLUB DE CAFÉ DE ESPECIALIDAD</span>
+        <h1 className="font-serif text-4xl font-bold text-coffee-900 dark:text-coffee-100 mt-2">Configura tu Suscripción Mensual</h1>
+        <p className="text-coffee-600 dark:text-coffee-350 mt-3 font-sans leading-relaxed">
           Diseña una experiencia a tu medida. Elige la frecuencia, el peso y el perfil aromático que mejor se adapte a tus rutinas de café. Envíos gratis garantizados directamente a tu puerta.
         </p>
       </div>
@@ -148,12 +148,12 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
         <div className="lg:col-span-8 space-y-8">
           
           {/* STEP 1: Frecuencia de envío */}
-          <section className="bg-coffee-50 border border-coffee-200/50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <section className="bg-coffee-50 dark:bg-coffee-950/30 border border-coffee-200/50 dark:border-coffee-850 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 text-coffee-50 font-serif font-bold text-sm rounded-lg">1</span>
+              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 dark:bg-coffee-900 text-coffee-50 dark:text-coffee-300 font-serif font-bold text-sm rounded-lg">1</span>
               <div>
-                <h3 className="font-serif text-lg font-bold text-coffee-900">¿Con qué frecuencia quieres tu café?</h3>
-                <p className="text-xs text-coffee-500 font-sans">Puedes cambiar la frecuencia o pausar en cualquier momento</p>
+                <h3 className="font-serif text-lg font-bold text-coffee-900 dark:text-coffee-100">¿Con qué frecuencia quieres tu café?</h3>
+                <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans">Puedes cambiar la frecuencia o pausar en cualquier momento</p>
               </div>
             </div>
 
@@ -166,18 +166,18 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
                     onClick={() => setFrequency(f.id as SubscriptionConfig['frequency'])}
                     className={`p-5 rounded-xl border text-left transition-all duration-250 flex flex-col justify-between h-full relative ${
                       isSelected
-                        ? 'border-coffee-800 bg-coffee-100/60 shadow-sm ring-1 ring-coffee-800/20'
-                        : 'border-coffee-200 bg-transparent hover:border-coffee-300'
+                        ? 'border-coffee-800 dark:border-coffee-500 bg-coffee-100/60 dark:bg-coffee-900/60 shadow-sm ring-1 ring-coffee-800/20 dark:ring-coffee-500/20'
+                        : 'border-coffee-200 dark:border-coffee-800 bg-transparent hover:border-coffee-300 dark:hover:border-coffee-700'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="font-serif font-bold text-base text-coffee-900">{f.label}</span>
-                        {isSelected && <Check className="h-4 w-4 text-coffee-800 fill-coffee-100" />}
+                        <span className="font-serif font-bold text-base text-coffee-900 dark:text-coffee-100">{f.label}</span>
+                        {isSelected && <Check className="h-4 w-4 text-coffee-800 dark:text-coffee-300 fill-coffee-100" />}
                       </div>
-                      <p className="text-xs text-coffee-600 mt-2 font-sans leading-relaxed">{f.desc}</p>
+                      <p className="text-xs text-coffee-600 dark:text-coffee-350 mt-2 font-sans leading-relaxed">{f.desc}</p>
                     </div>
-                    <span className="mt-4 inline-block text-[10px] font-mono font-bold px-2 py-0.5 bg-coffee-800 text-coffee-50 rounded uppercase tracking-wider self-start">
+                    <span className="mt-4 inline-block text-[10px] font-mono font-bold px-2 py-0.5 bg-coffee-800 dark:bg-coffee-750 text-coffee-50 rounded uppercase tracking-wider self-start">
                       {f.save}
                     </span>
                   </button>
@@ -187,12 +187,12 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
           </section>
 
           {/* STEP 2: Cantidad por entrega */}
-          <section className="bg-coffee-50 border border-coffee-200/50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <section className="bg-coffee-50 dark:bg-coffee-950/30 border border-coffee-200/50 dark:border-coffee-850 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 text-coffee-50 font-serif font-bold text-sm rounded-lg">2</span>
+              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 dark:bg-coffee-900 text-coffee-50 dark:text-coffee-300 font-serif font-bold text-sm rounded-lg">2</span>
               <div>
-                <h3 className="font-serif text-lg font-bold text-coffee-900">¿Qué cantidad de café necesitas en cada entrega?</h3>
-                <p className="text-xs text-coffee-500 font-sans">Calculado para un consumo óptimo sin perder aroma</p>
+                <h3 className="font-serif text-lg font-bold text-coffee-900 dark:text-coffee-100">¿Qué cantidad de café necesitas en cada entrega?</h3>
+                <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans">Calculado para un consumo óptimo sin perder aroma</p>
               </div>
             </div>
 
@@ -205,18 +205,18 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
                     onClick={() => setQuantity(q.id as SubscriptionConfig['quantity'])}
                     className={`p-5 rounded-xl border text-left transition-all duration-250 flex flex-col justify-between h-full ${
                       isSelected
-                        ? 'border-coffee-800 bg-coffee-100/60 shadow-sm ring-1 ring-coffee-800/20'
-                        : 'border-coffee-200 bg-transparent hover:border-coffee-300'
+                        ? 'border-coffee-800 dark:border-coffee-500 bg-coffee-100/60 dark:bg-coffee-900/60 shadow-sm ring-1 ring-coffee-800/20 dark:ring-coffee-500/20'
+                        : 'border-coffee-200 dark:border-coffee-800 bg-transparent hover:border-coffee-300 dark:hover:border-coffee-700'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="font-serif font-bold text-base text-coffee-900">{q.label}</span>
-                        {isSelected && <Check className="h-4 w-4 text-coffee-800" />}
+                        <span className="font-serif font-bold text-base text-coffee-900 dark:text-coffee-100">{q.label}</span>
+                        {isSelected && <Check className="h-4 w-4 text-coffee-800 dark:text-coffee-300" />}
                       </div>
-                      <p className="text-xs text-coffee-600 mt-2 font-sans leading-relaxed">{q.desc}</p>
+                      <p className="text-xs text-coffee-600 dark:text-coffee-350 mt-2 font-sans leading-relaxed">{q.desc}</p>
                     </div>
-                    <span className="mt-4 inline-block text-[10px] font-mono font-semibold px-2 py-0.5 bg-coffee-200 text-coffee-800 rounded uppercase tracking-wider self-start">
+                    <span className="mt-4 inline-block text-[10px] font-mono font-semibold px-2 py-0.5 bg-coffee-200 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-300 rounded uppercase tracking-wider self-start">
                       {q.savings}
                     </span>
                   </button>
@@ -226,12 +226,12 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
           </section>
 
           {/* STEP 3: Tipo de perfil aromático */}
-          <section className="bg-coffee-50 border border-coffee-200/50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <section className="bg-coffee-50 dark:bg-coffee-950/30 border border-coffee-200/50 dark:border-coffee-850 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 text-coffee-50 font-serif font-bold text-sm rounded-lg">3</span>
+              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 dark:bg-coffee-900 text-coffee-50 dark:text-coffee-300 font-serif font-bold text-sm rounded-lg">3</span>
               <div>
-                <h3 className="font-serif text-lg font-bold text-coffee-900">¿Cuál es tu perfil de sabor preferido?</h3>
-                <p className="text-xs text-coffee-500 font-sans">Nuestros tostadores seleccionan los mejores lotes de temporada según tu elección</p>
+                <h3 className="font-serif text-lg font-bold text-coffee-900 dark:text-coffee-100">¿Cuál es tu perfil de sabor preferido?</h3>
+                <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans">Nuestros tostadores seleccionan los mejores lotes de temporada según tu elección</p>
               </div>
             </div>
 
@@ -244,26 +244,26 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
                     onClick={() => setCoffeeType(t.id as SubscriptionConfig['coffeeType'])}
                     className={`p-5 rounded-xl border text-left transition-all duration-250 flex flex-col justify-between h-full relative ${
                       isSelected
-                        ? 'border-coffee-800 bg-coffee-100/60 shadow-sm ring-1 ring-coffee-800/20'
-                        : 'border-coffee-200 bg-transparent hover:border-coffee-300'
+                        ? 'border-coffee-800 dark:border-coffee-500 bg-coffee-100/60 dark:bg-coffee-900/60 shadow-sm ring-1 ring-coffee-800/20 dark:ring-coffee-500/20'
+                        : 'border-coffee-200 dark:border-coffee-800 bg-transparent hover:border-coffee-300 dark:hover:border-coffee-700'
                     }`}
                   >
                     <div>
                       <div className="flex items-start justify-between">
                         <div>
-                          <span className="font-serif font-bold text-base text-coffee-900 block">{t.label}</span>
-                          <span className="inline-block text-[9px] font-mono px-2 py-0.5 bg-amber-500/15 text-amber-900 font-bold rounded uppercase mt-1">
+                          <span className="font-serif font-bold text-base text-coffee-900 dark:text-coffee-100 block">{t.label}</span>
+                          <span className="inline-block text-[9px] font-mono px-2 py-0.5 bg-amber-500/15 dark:bg-amber-500/10 text-amber-900 dark:text-amber-400 font-bold rounded uppercase mt-1">
                             {t.badge}
                           </span>
                         </div>
-                        {isSelected && <Check className="h-4 w-4 text-coffee-800 mt-1 flex-shrink-0" />}
+                        {isSelected && <Check className="h-4 w-4 text-coffee-800 dark:text-coffee-300 mt-1 flex-shrink-0" />}
                       </div>
-                      <p className="text-xs text-coffee-600 mt-3 font-sans leading-relaxed">{t.desc}</p>
+                      <p className="text-xs text-coffee-600 dark:text-coffee-350 mt-3 font-sans leading-relaxed">{t.desc}</p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-coffee-200/40 text-xs flex justify-between items-center w-full font-sans">
-                      <span className="text-coffee-500 font-mono text-[10px]">SUPLEMENTO DEL LOTE:</span>
-                      <span className="font-bold text-coffee-800">
+                    <div className="mt-4 pt-3 border-t border-coffee-200/40 dark:border-coffee-800/40 text-xs flex justify-between items-center w-full font-sans">
+                      <span className="text-coffee-500 dark:text-coffee-450 font-mono text-[10px]">SUPLEMENTO DEL LOTE:</span>
+                      <span className="font-bold text-coffee-800 dark:text-coffee-200">
                         {t.priceModifier === 0 ? 'Sin recargo' : `+$${t.priceModifier.toFixed(2)} por bolsa`}
                       </span>
                     </div>
@@ -274,12 +274,12 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
           </section>
 
           {/* STEP 4: Molienda */}
-          <section className="bg-coffee-50 border border-coffee-200/50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <section className="bg-coffee-50 dark:bg-coffee-950/30 border border-coffee-200/50 dark:border-coffee-850 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 text-coffee-50 font-serif font-bold text-sm rounded-lg">4</span>
+              <span className="flex items-center justify-center h-8 w-8 bg-coffee-800 dark:bg-coffee-900 text-coffee-50 dark:text-coffee-300 font-serif font-bold text-sm rounded-lg">4</span>
               <div>
-                <h3 className="font-serif text-lg font-bold text-coffee-900">¿Qué tipo de molienda necesitas?</h3>
-                <p className="text-xs text-coffee-500 font-sans">Optimizado de acuerdo con el método de extracción que utilices</p>
+                <h3 className="font-serif text-lg font-bold text-coffee-900 dark:text-coffee-100">¿Qué tipo de molienda necesitas?</h3>
+                <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans">Optimizado de acuerdo con el método de extracción que utilices</p>
               </div>
             </div>
 
@@ -292,20 +292,20 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
                     onClick={() => setGrindSize(g.id as SubscriptionConfig['grindSize'])}
                     className={`w-full p-4 rounded-xl border text-left transition-all duration-200 flex items-center justify-between ${
                       isSelected
-                        ? 'border-coffee-800 bg-coffee-100/60 shadow-sm ring-1 ring-coffee-800/20'
-                        : 'border-coffee-200 bg-transparent hover:border-coffee-300'
+                        ? 'border-coffee-800 dark:border-coffee-500 bg-coffee-100/60 dark:bg-coffee-900/60 shadow-sm ring-1 ring-coffee-800/20 dark:ring-coffee-500/20'
+                        : 'border-coffee-200 dark:border-coffee-800 bg-transparent hover:border-coffee-300 dark:hover:border-coffee-700'
                     }`}
                   >
                     <div className="flex-1 pr-4">
-                      <span className="font-serif font-bold text-sm sm:text-base text-coffee-900 block">{g.label}</span>
-                      <p className="text-xs text-coffee-600 mt-1 font-sans leading-normal">{g.desc}</p>
+                      <span className="font-serif font-bold text-sm sm:text-base text-coffee-900 dark:text-coffee-100 block">{g.label}</span>
+                      <p className="text-xs text-coffee-600 dark:text-coffee-350 mt-1 font-sans leading-normal">{g.desc}</p>
                     </div>
                     {isSelected ? (
-                      <div className="h-5 w-5 rounded-full bg-coffee-800 flex items-center justify-center text-coffee-50 flex-shrink-0">
+                      <div className="h-5 w-5 rounded-full bg-coffee-800 dark:bg-coffee-750 flex items-center justify-center text-coffee-50 flex-shrink-0">
                         <Check className="h-3 w-3" />
                       </div>
                     ) : (
-                      <div className="h-5 w-5 rounded-full border border-coffee-300 bg-transparent flex-shrink-0"></div>
+                      <div className="h-5 w-5 rounded-full border border-coffee-300 dark:border-coffee-700 bg-transparent flex-shrink-0"></div>
                     )}
                   </button>
                 );
@@ -396,9 +396,9 @@ export default function SubscriptionBuilder({ onSubscribe, showNotification }: S
           </div>
 
           {/* Core Guarantees card */}
-          <div className="bg-coffee-50 border border-coffee-200/50 rounded-2xl p-6 space-y-4">
-            <h4 className="font-serif text-sm font-bold text-coffee-900">Garantías de Nuestra Suscripción</h4>
-            <ul className="space-y-3 text-xs text-coffee-600 font-sans">
+          <div className="bg-coffee-50 dark:bg-coffee-950/30 border border-coffee-200/50 dark:border-coffee-850 rounded-2xl p-6 space-y-4">
+            <h4 className="font-serif text-sm font-bold text-coffee-900 dark:text-coffee-100">Garantías de Nuestra Suscripción</h4>
+            <ul className="space-y-3 text-xs text-coffee-600 dark:text-coffee-350 font-sans">
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                 <span>Pausa, edita o cancela en 1 clic. Sin contratos permanentes.</span>

@@ -60,6 +60,33 @@ export default function App() {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
 
+  // Dark Mode / Theme state
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const savedTheme = localStorage.getItem('albor_theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  // Sync theme with DOM and LocalStorage
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      document.body.classList.add('dark');
+      localStorage.setItem('albor_theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      document.body.classList.remove('dark');
+      localStorage.setItem('albor_theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
   // Subscription builder transient config (for checkout redirection)
   const [pendingSubscriptionConfig, setPendingSubscriptionConfig] = useState<SubscriptionConfig | null>(null);
   const [pendingSubscriptionPrice, setPendingSubscriptionPrice] = useState<number>(0);
@@ -274,7 +301,7 @@ export default function App() {
   const hasActiveSubscription = subscription !== null && subscription.status === 'active';
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#FAF7F2] font-sans antialiased text-coffee-950">
+    <div className="min-h-screen flex flex-col justify-between bg-coffee-50 dark:bg-coffee-950 font-sans antialiased text-coffee-950 dark:text-coffee-50 transition-colors duration-300">
       
       {/* Navigation header */}
       <Navbar 
@@ -283,6 +310,8 @@ export default function App() {
         cart={cart}
         setCartOpen={setCartOpen}
         hasActiveSubscription={hasActiveSubscription}
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
       />
 
       {/* Main Container viewport */}

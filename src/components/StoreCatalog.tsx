@@ -100,19 +100,19 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <h1 className="font-serif text-4xl font-bold text-coffee-900">Nuestra Tienda de Especialidad</h1>
-        <p className="text-coffee-600 mt-3 font-sans leading-relaxed">
+        <h1 className="font-serif text-4xl font-bold text-coffee-900 dark:text-coffee-100">Nuestra Tienda de Especialidad</h1>
+        <p className="text-coffee-600 dark:text-coffee-300 mt-3 font-sans leading-relaxed">
           Cafés en grano de tueste fresco, 100% trazables y con puntuaciones excepcionales en escala SCA. Elige tu origen favorito y el tipo de molienda perfecto para tu preparación.
         </p>
       </div>
 
       {/* Catalog Control Bar */}
-      <div className="bg-coffee-100/60 border border-coffee-200/40 rounded-2xl p-6 mb-10 shadow-sm space-y-6">
+      <div className="bg-coffee-100/60 dark:bg-coffee-900/20 border border-coffee-200/40 dark:border-coffee-800/40 rounded-2xl p-6 mb-10 shadow-sm space-y-6">
         <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
           
           {/* Search Input */}
           <div className="relative w-full lg:max-w-md">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-coffee-400">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-coffee-400 dark:text-coffee-500">
               <Search className="h-5 w-5" />
             </span>
             <input
@@ -120,13 +120,13 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
               placeholder="Buscar por origen, finca, notas de sabor..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-coffee-50 border border-coffee-200/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 transition-all placeholder:text-coffee-400"
+              className="w-full pl-11 pr-4 py-3 bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/60 dark:border-coffee-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 dark:text-coffee-100 transition-all placeholder:text-coffee-400 dark:placeholder:text-coffee-500"
               id="store-search-input"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-coffee-400 hover:text-coffee-600"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-coffee-400 dark:text-coffee-500 hover:text-coffee-600 dark:hover:text-coffee-300"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -135,13 +135,13 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
 
           {/* Sort Select */}
           <div className="flex items-center gap-3 w-full lg:w-auto justify-end">
-            <span className="text-xs font-mono text-coffee-500 uppercase tracking-wide whitespace-nowrap flex items-center gap-1.5">
+            <span className="text-xs font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wide whitespace-nowrap flex items-center gap-1.5">
               <SlidersHorizontal className="h-4 w-4" /> Ordenar por:
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-3 bg-coffee-50 border border-coffee-200/60 rounded-xl text-xs font-medium text-coffee-700 focus:outline-none focus:ring-2 focus:ring-coffee-500 cursor-pointer"
+              className="px-4 py-3 bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/60 dark:border-coffee-800 rounded-xl text-xs font-medium text-coffee-700 dark:text-coffee-300 focus:outline-none focus:ring-2 focus:ring-coffee-500 cursor-pointer"
               id="store-sort-select"
             >
               <option value="score">Mayor Puntuación (SCA)</option>
@@ -152,18 +152,18 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
         </div>
 
         {/* Filter Pills */}
-        <div className="border-t border-coffee-200/30 pt-5 space-y-4">
+        <div className="border-t border-coffee-200/30 dark:border-coffee-800/30 pt-5 space-y-4">
           {/* Origin filter group */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-coffee-500 uppercase tracking-wider w-16 mr-1">Origen:</span>
+            <span className="text-[10px] font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wider w-16 mr-1">Origen:</span>
             {origins.map(origin => (
               <button
                 key={origin}
                 onClick={() => setSelectedOrigin(origin)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedOrigin === origin
-                    ? 'bg-coffee-800 text-coffee-50 font-semibold shadow-sm'
-                    : 'bg-coffee-50 border border-coffee-200/50 text-coffee-600 hover:text-coffee-900 hover:bg-coffee-200/20'
+                    ? 'bg-coffee-800 dark:bg-coffee-700 text-coffee-50 font-semibold shadow-sm'
+                    : 'bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/50 dark:border-coffee-800 text-coffee-600 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-coffee-100 hover:bg-coffee-200/20 dark:hover:bg-coffee-900/40'
                 }`}
               >
                 {origin}
@@ -173,15 +173,15 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
 
           {/* Process filter group */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-coffee-500 uppercase tracking-wider w-16 mr-1">Proceso:</span>
+            <span className="text-[10px] font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wider w-16 mr-1">Proceso:</span>
             {processes.map(proc => (
               <button
                 key={proc}
                 onClick={() => setSelectedProcess(proc)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedProcess === proc
-                    ? 'bg-coffee-800 text-coffee-50 font-semibold shadow-sm'
-                    : 'bg-coffee-50 border border-coffee-200/50 text-coffee-600 hover:text-coffee-900 hover:bg-coffee-200/20'
+                    ? 'bg-coffee-800 dark:bg-coffee-700 text-coffee-50 font-semibold shadow-sm'
+                    : 'bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/50 dark:border-coffee-800 text-coffee-600 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-coffee-100 hover:bg-coffee-200/20 dark:hover:bg-coffee-900/40'
                 }`}
               >
                 {proc}
@@ -191,15 +191,15 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
 
           {/* Roast level filter group */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-coffee-500 uppercase tracking-wider w-16 mr-1">Tueste:</span>
+            <span className="text-[10px] font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wider w-16 mr-1">Tueste:</span>
             {['Todos', 'Claro', 'Medio'].map(roast => (
               <button
                 key={roast}
                 onClick={() => setSelectedRoast(roast)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedRoast === roast
-                    ? 'bg-coffee-800 text-coffee-50 font-semibold shadow-sm'
-                    : 'bg-coffee-50 border border-coffee-200/50 text-coffee-600 hover:text-coffee-900 hover:bg-coffee-200/20'
+                    ? 'bg-coffee-800 dark:bg-coffee-700 text-coffee-50 font-semibold shadow-sm'
+                    : 'bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/50 dark:border-coffee-800 text-coffee-600 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-coffee-100 hover:bg-coffee-200/20 dark:hover:bg-coffee-900/40'
                 }`}
               >
                 {roast === 'Todos' ? 'Todos' : `Tueste ${roast}`}
@@ -242,7 +242,7 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
                   key={coffee.id}
-                  className="bg-coffee-50 rounded-2xl overflow-hidden border border-coffee-200/50 flex flex-col justify-between coffee-card-glow relative"
+                  className="bg-coffee-50 dark:bg-coffee-900/20 rounded-2xl overflow-hidden border border-coffee-200/50 dark:border-coffee-800/50 flex flex-col justify-between coffee-card-glow relative"
                   id={`coffee-card-${coffee.id}`}
                 >
                   {/* Top Badges / Image Container */}
@@ -285,26 +285,26 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                     <div>
                       {/* Name / Farm */}
                       <div className="mb-2">
-                        <h3 className="font-serif text-xl font-bold text-coffee-900 leading-tight">
+                        <h3 className="font-serif text-xl font-bold text-coffee-900 dark:text-coffee-100 leading-tight">
                           {coffee.name}
                         </h3>
-                        <p className="text-xs text-coffee-500 font-sans mt-1">
-                          Finca: <span className="font-medium text-coffee-700">{coffee.farm}</span>
+                        <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans mt-1">
+                          Finca: <span className="font-medium text-coffee-700 dark:text-coffee-250">{coffee.farm}</span>
                         </p>
                       </div>
 
                       {/* Elevation & Roast specifications */}
-                      <div className="grid grid-cols-2 gap-2 border-t border-b border-coffee-200/30 py-2.5 my-3.5 text-[11px] font-mono text-coffee-500">
+                      <div className="grid grid-cols-2 gap-2 border-t border-b border-coffee-200/30 dark:border-coffee-800/30 py-2.5 my-3.5 text-[11px] font-mono text-coffee-500 dark:text-coffee-400">
                         <div>
-                          Altitud: <span className="font-bold text-coffee-700">{coffee.altitude}m</span>
+                          Altitud: <span className="font-bold text-coffee-700 dark:text-coffee-200">{coffee.altitude}m</span>
                         </div>
                         <div>
-                          Tueste: <span className="font-bold text-coffee-700">{coffee.roastLevel}</span>
+                          Tueste: <span className="font-bold text-coffee-700 dark:text-coffee-200">{coffee.roastLevel}</span>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-xs text-coffee-600 font-sans line-clamp-2 leading-relaxed mb-4">
+                      <p className="text-xs text-coffee-600 dark:text-coffee-350 font-sans line-clamp-2 leading-relaxed mb-4">
                         {coffee.description}
                       </p>
 
@@ -313,7 +313,7 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                         {coffee.flavorNotes.map((note) => (
                           <span
                             key={note}
-                            className="text-[10px] font-sans px-2.5 py-1 bg-coffee-100 text-coffee-800 rounded-md border border-coffee-200/30"
+                            className="text-[10px] font-sans px-2.5 py-1 bg-coffee-100 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-200 rounded-md border border-coffee-200/30 dark:border-coffee-800/30"
                           >
                             {note}
                           </span>
@@ -323,10 +323,10 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
 
                     {/* Bottom Buy Actions */}
                     <div>
-                      <div className="flex items-center justify-between pt-4 border-t border-coffee-200/40">
+                      <div className="flex items-center justify-between pt-4 border-t border-coffee-200/40 dark:border-coffee-800/40">
                         <div className="flex flex-col">
-                          <span className="text-[10px] font-mono text-coffee-400 tracking-wider">PRECIO (250G)</span>
-                          <span className="text-lg font-bold text-coffee-900">
+                          <span className="text-[10px] font-mono text-coffee-400 dark:text-coffee-500 tracking-wider">PRECIO (250G)</span>
+                          <span className="text-lg font-bold text-coffee-900 dark:text-coffee-100">
                             ${coffee.price.toFixed(2)}
                           </span>
                         </div>
@@ -334,7 +334,7 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleOpenDetail(coffee)}
-                            className="p-2 bg-coffee-100 hover:bg-coffee-250/70 text-coffee-800 rounded-lg text-xs font-semibold border border-coffee-200/50 transition-all"
+                            className="p-2 bg-coffee-100 dark:bg-coffee-900 hover:bg-coffee-250/70 dark:hover:bg-coffee-800 text-coffee-800 dark:text-coffee-200 rounded-lg text-xs font-semibold border border-coffee-200/50 dark:border-coffee-800 transition-all"
                             title="Ver Perfil Completo"
                           >
                             <Info className="h-4 w-4" />
@@ -404,7 +404,7 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="bg-coffee-50 rounded-3xl overflow-hidden shadow-2xl border border-coffee-200 max-w-3xl w-full relative z-10 max-h-[90vh] overflow-y-auto"
+              className="bg-coffee-50 dark:bg-coffee-950 rounded-3xl overflow-hidden shadow-2xl border border-coffee-200 dark:border-coffee-800 max-w-3xl w-full relative z-10 max-h-[90vh] overflow-y-auto"
               id="coffee-detail-modal"
             >
               {/* Close Button */}
@@ -440,31 +440,31 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                 {/* Right side: Info and Configuration */}
                 <div className="md:col-span-7 p-6 sm:p-8 space-y-6">
                   <div>
-                    <span className="font-mono text-xs text-coffee-500 uppercase tracking-widest">{selectedCoffee.origin}</span>
-                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-coffee-900 mt-1">
+                    <span className="font-mono text-xs text-coffee-500 dark:text-coffee-400 uppercase tracking-widest">{selectedCoffee.origin}</span>
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-coffee-900 dark:text-coffee-100 mt-1">
                       {selectedCoffee.name}
                     </h2>
-                    <p className="text-sm text-coffee-600 mt-1 font-sans italic">{selectedCoffee.farm}</p>
+                    <p className="text-sm text-coffee-600 dark:text-coffee-350 mt-1 font-sans italic">{selectedCoffee.farm}</p>
                   </div>
 
                   {/* Quick Specs */}
-                  <div className="grid grid-cols-3 gap-3 bg-coffee-100/50 p-3.5 rounded-xl border border-coffee-200/40 text-xs font-sans text-coffee-700">
+                  <div className="grid grid-cols-3 gap-3 bg-coffee-100/50 dark:bg-coffee-900/30 p-3.5 rounded-xl border border-coffee-200/40 dark:border-coffee-800/40 text-xs font-sans text-coffee-700 dark:text-coffee-300">
                     <div className="text-center">
-                      <p className="text-[10px] font-mono text-coffee-400 uppercase">Altitud</p>
-                      <p className="font-bold text-coffee-900 mt-0.5">{selectedCoffee.altitude}m</p>
+                      <p className="text-[10px] font-mono text-coffee-400 dark:text-coffee-500 uppercase">Altitud</p>
+                      <p className="font-bold text-coffee-900 dark:text-coffee-100 mt-0.5">{selectedCoffee.altitude}m</p>
                     </div>
-                    <div className="text-center border-l border-r border-coffee-200/60">
-                      <p className="text-[10px] font-mono text-coffee-400 uppercase">Proceso</p>
-                      <p className="font-bold text-coffee-900 mt-0.5">{selectedCoffee.process}</p>
+                    <div className="text-center border-l border-r border-coffee-200/60 dark:border-coffee-800/60">
+                      <p className="text-[10px] font-mono text-coffee-400 dark:text-coffee-500 uppercase">Proceso</p>
+                      <p className="font-bold text-coffee-900 dark:text-coffee-100 mt-0.5">{selectedCoffee.process}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-[10px] font-mono text-coffee-400 uppercase">Tueste</p>
-                      <p className="font-bold text-coffee-900 mt-0.5">{selectedCoffee.roastLevel}</p>
+                      <p className="text-[10px] font-mono text-coffee-400 dark:text-coffee-500 uppercase">Tueste</p>
+                      <p className="font-bold text-coffee-900 dark:text-coffee-100 mt-0.5">{selectedCoffee.roastLevel}</p>
                     </div>
                   </div>
 
                   {/* Full Description */}
-                  <p className="text-sm text-coffee-600 leading-relaxed">
+                  <p className="text-sm text-coffee-600 dark:text-coffee-300 leading-relaxed">
                     {selectedCoffee.description}
                   </p>
 
@@ -484,10 +484,10 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                   </div>
 
                   {/* Grind & Quantity Selection */}
-                  <div className="border-t border-coffee-200/50 pt-5 space-y-4">
+                  <div className="border-t border-coffee-200/50 dark:border-coffee-800/50 pt-5 space-y-4">
                     {/* Grind size */}
                     <div className="space-y-2">
-                      <label className="text-xs font-mono text-coffee-500 uppercase tracking-wide block">Punto de Molienda:</label>
+                      <label className="text-xs font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wide block">Punto de Molienda:</label>
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         {([
                           'En grano',
@@ -503,8 +503,8 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                               onClick={() => setModalGrindSize(grind)}
                               className={`px-3 py-2.5 rounded-lg border text-left font-medium transition-all ${
                                 isSelected
-                                  ? 'border-coffee-800 bg-coffee-100 text-coffee-900 font-semibold'
-                                  : 'border-coffee-200/60 bg-transparent text-coffee-600 hover:border-coffee-300 hover:text-coffee-850'
+                                  ? 'border-coffee-800 dark:border-coffee-200 bg-coffee-100 dark:bg-coffee-900 text-coffee-900 dark:text-coffee-100 font-semibold'
+                                  : 'border-coffee-200/60 dark:border-coffee-800 bg-transparent text-coffee-600 dark:text-coffee-450 hover:border-coffee-300 dark:hover:border-coffee-700 hover:text-coffee-850 dark:hover:text-coffee-100'
                               }`}
                             >
                               {grind}
@@ -518,18 +518,18 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                     <div className="flex items-center justify-between pt-3">
                       {/* Quantity Selector */}
                       <div className="space-y-2">
-                        <label className="text-xs font-mono text-coffee-500 uppercase tracking-wide block">Cantidad (Bolsas de 250g):</label>
-                        <div className="flex items-center border border-coffee-200 bg-coffee-100/50 rounded-xl max-w-[120px] overflow-hidden">
+                        <label className="text-xs font-mono text-coffee-500 dark:text-coffee-400 uppercase tracking-wide block">Cantidad (Bolsas de 250g):</label>
+                        <div className="flex items-center border border-coffee-200 dark:border-coffee-800 bg-coffee-100/50 dark:bg-coffee-900/40 rounded-xl max-w-[120px] overflow-hidden">
                           <button
                             onClick={() => setModalQuantity(Math.max(1, modalQuantity - 1))}
-                            className="px-3 py-2 text-coffee-700 hover:bg-coffee-200 hover:text-coffee-900 transition-all font-bold"
+                            className="px-3 py-2 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-200 dark:hover:bg-coffee-800 hover:text-coffee-900 dark:hover:text-coffee-100 transition-all font-bold"
                           >
                             -
                           </button>
-                          <span className="flex-1 text-center text-sm font-bold text-coffee-900">{modalQuantity}</span>
+                          <span className="flex-1 text-center text-sm font-bold text-coffee-900 dark:text-coffee-100">{modalQuantity}</span>
                           <button
                             onClick={() => setModalQuantity(modalQuantity + 1)}
-                            className="px-3 py-2 text-coffee-700 hover:bg-coffee-200 hover:text-coffee-900 transition-all font-bold"
+                            className="px-3 py-2 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-200 dark:hover:bg-coffee-800 hover:text-coffee-900 dark:hover:text-coffee-100 transition-all font-bold"
                           >
                             +
                           </button>
@@ -538,8 +538,8 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
 
                       {/* Summary Price */}
                       <div className="text-right">
-                        <p className="text-[10px] font-mono text-coffee-400 uppercase tracking-wider">Monto Total</p>
-                        <p className="text-2xl font-bold text-coffee-900 mt-1">
+                        <p className="text-[10px] font-mono text-coffee-400 dark:text-coffee-500 uppercase tracking-wider">Monto Total</p>
+                        <p className="text-2xl font-bold text-coffee-900 dark:text-coffee-100 mt-1">
                           ${(selectedCoffee.price * modalQuantity).toFixed(2)}
                         </p>
                       </div>
@@ -547,16 +547,16 @@ export default function StoreCatalog({ onAddToCart, showNotification }: StoreCat
                   </div>
 
                   {/* Modal Action Buttons */}
-                  <div className="flex gap-3 pt-4 border-t border-coffee-200/30">
+                  <div className="flex gap-3 pt-4 border-t border-coffee-200/30 dark:border-coffee-800/30">
                     <button
                       onClick={() => setSelectedCoffee(null)}
-                      className="flex-1 py-3 border border-coffee-300 text-coffee-700 font-semibold rounded-xl text-sm hover:bg-coffee-150 transition-all"
+                      className="flex-1 py-3 border border-coffee-300 dark:border-coffee-700 text-coffee-700 dark:text-coffee-300 font-semibold rounded-xl text-sm hover:bg-coffee-150 dark:hover:bg-coffee-900 transition-all"
                     >
                       Volver a la Tienda
                     </button>
                     <button
                       onClick={handleAddFromModal}
-                      className="flex-[1.5] py-3 bg-coffee-800 hover:bg-coffee-700 text-coffee-50 font-semibold rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2"
+                      className="flex-[1.5] py-3 bg-coffee-800 dark:bg-coffee-750 hover:bg-coffee-700 dark:hover:bg-coffee-650 text-coffee-50 font-semibold rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2"
                       id="modal-add-to-cart-btn"
                     >
                       <span>Añadir al Carrito</span>

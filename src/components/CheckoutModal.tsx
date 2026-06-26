@@ -146,14 +146,14 @@ export default function CheckoutModal({
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            className="bg-coffee-50 rounded-3xl overflow-hidden border border-coffee-200/80 shadow-2xl max-w-4xl w-full relative z-10 max-h-[92vh] flex flex-col lg:flex-row"
+            className="bg-coffee-50 dark:bg-coffee-950 rounded-3xl overflow-hidden border border-coffee-200/80 dark:border-coffee-850 shadow-2xl max-w-4xl w-full relative z-10 max-h-[92vh] flex flex-col lg:flex-row"
             id="checkout-modal-container"
           >
             {/* Close Trigger */}
             {step !== 3 && !isProcessing && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 bg-coffee-100 hover:bg-coffee-200 text-coffee-600 hover:text-coffee-950 rounded-full transition-all z-20"
+                className="absolute top-4 right-4 p-2 bg-coffee-100 dark:bg-coffee-900 hover:bg-coffee-200 dark:hover:bg-coffee-800 text-coffee-600 dark:text-coffee-300 hover:text-coffee-950 dark:hover:text-coffee-100 rounded-full transition-all z-20"
                 id="checkout-close-btn"
               >
                 <X className="h-4 w-4" />
@@ -161,16 +161,16 @@ export default function CheckoutModal({
             )}
 
             {/* Left Column: Form Details (Step 1 or 2 or 3) */}
-            <div className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto max-h-[60vh] lg:max-h-[92vh] border-b lg:border-b-0 lg:border-r border-coffee-200/50">
+            <div className="flex-1 p-6 sm:p-8 lg:p-10 overflow-y-auto max-h-[60vh] lg:max-h-[92vh] border-b lg:border-b-0 lg:border-r border-coffee-200/50 dark:border-coffee-850">
               
               {/* Progress Steps Indicators (Hidden on success screen) */}
               {step !== 3 && (
-                <div className="flex items-center gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider text-coffee-500">
-                  <span className={`font-bold ${step === 1 ? 'text-coffee-800' : 'text-coffee-400'}`}>1. Envío</span>
+                <div className="flex items-center gap-2 mb-8 font-mono text-[10px] uppercase tracking-wider text-coffee-500 dark:text-coffee-400">
+                  <span className={`font-bold ${step === 1 ? 'text-coffee-800 dark:text-coffee-200' : 'text-coffee-400 dark:text-coffee-550'}`}>1. Envío</span>
                   <ArrowRight className="h-3 w-3" />
-                  <span className={`font-bold ${step === 2 ? 'text-coffee-800' : 'text-coffee-400'}`}>2. Pago</span>
+                  <span className={`font-bold ${step === 2 ? 'text-coffee-800 dark:text-coffee-200' : 'text-coffee-400 dark:text-coffee-550'}`}>2. Pago</span>
                   <ArrowRight className="h-3 w-3" />
-                  <span className="text-coffee-300">3. Confirmación</span>
+                  <span className="text-coffee-300 dark:text-coffee-600">3. Confirmación</span>
                 </div>
               )}
 
@@ -178,21 +178,21 @@ export default function CheckoutModal({
               {step === 1 && (
                 <div className="space-y-5">
                   <div>
-                    <h2 className="font-serif text-2xl font-bold text-coffee-900">Detalles de Envío</h2>
-                    <p className="text-xs text-coffee-500 font-sans mt-1">Ingresa el destino donde quieres recibir tu café recién tostado.</p>
+                    <h2 className="font-serif text-2xl font-bold text-coffee-900 dark:text-coffee-100">Detalles de Envío</h2>
+                    <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans mt-1">Ingresa el destino donde quieres recibir tu café recién tostado.</p>
                   </div>
 
                   <div className="space-y-4 text-xs font-sans">
                     {/* Full Name */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Nombre Completo:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Nombre Completo:</label>
                       <input
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Juan Carlos Rossi"
-                        className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                          errors.fullName ? 'border-red-500' : 'border-coffee-200'
+                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                          errors.fullName ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                         }`}
                         id="checkout-fullName"
                       />
@@ -201,14 +201,14 @@ export default function CheckoutModal({
 
                     {/* Email */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Correo Electrónico:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Correo Electrónico:</label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="ejemplo@correo.com"
-                        className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                          errors.email ? 'border-red-500' : 'border-coffee-200'
+                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                          errors.email ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                         }`}
                         id="checkout-email"
                       />
@@ -217,14 +217,14 @@ export default function CheckoutModal({
 
                     {/* Street address */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Dirección de Entrega:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Dirección de Entrega:</label>
                       <input
                         type="text"
                         value={street}
                         onChange={(e) => setStreet(e.target.value)}
                         placeholder="Av. Santa Fe 1234, Piso 4 B"
-                        className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                          errors.street ? 'border-red-500' : 'border-coffee-200'
+                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                          errors.street ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                         }`}
                         id="checkout-street"
                       />
@@ -234,28 +234,28 @@ export default function CheckoutModal({
                     {/* City and Postal Code */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="font-semibold text-coffee-700 block">Ciudad / Provincia:</label>
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Ciudad / Provincia:</label>
                         <input
                           type="text"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
                           placeholder="CABA"
-                          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                            errors.city ? 'border-red-500' : 'border-coffee-200'
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.city ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
                           id="checkout-city"
                         />
                         {errors.city && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.city}</p>}
                       </div>
                       <div className="space-y-1.5">
-                        <label className="font-semibold text-coffee-700 block">Código Postal:</label>
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Código Postal:</label>
                         <input
                           type="text"
                           value={postalCode}
                           onChange={(e) => setPostalCode(e.target.value)}
                           placeholder="C1059"
-                          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                            errors.postalCode ? 'border-red-500' : 'border-coffee-200'
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.postalCode ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
                           id="checkout-postalCode"
                         />
@@ -265,14 +265,14 @@ export default function CheckoutModal({
 
                     {/* Phone number */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Teléfono de Contacto:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Teléfono de Contacto:</label>
                       <input
                         type="tel"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+54 11 5555 1234"
-                        className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                          errors.phone ? 'border-red-500' : 'border-coffee-200'
+                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                          errors.phone ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                         }`}
                         id="checkout-phone"
                       />
@@ -295,8 +295,8 @@ export default function CheckoutModal({
               {step === 2 && (
                 <div className="space-y-5">
                   <div>
-                    <h2 className="font-serif text-2xl font-bold text-coffee-900">Método de Pago</h2>
-                    <p className="text-xs text-coffee-500 font-sans mt-1">
+                    <h2 className="font-serif text-2xl font-bold text-coffee-900 dark:text-coffee-100">Método de Pago</h2>
+                    <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans mt-1">
                       {isSubscriptionOnly 
                         ? 'Simulación segura para iniciar tu suscripción recurrente.'
                         : 'Simula una transacción segura con tarjeta de crédito.'}
@@ -346,14 +346,14 @@ export default function CheckoutModal({
                   <div className="space-y-4 text-xs font-sans">
                     {/* Cardholder name */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Nombre en la Tarjeta:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Nombre en la Tarjeta:</label>
                       <input
                         type="text"
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                         placeholder="Juan Carlos Rossi"
-                        className={`w-full px-4 py-3 bg-white border rounded-xl text-sm uppercase focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                          errors.cardName ? 'border-red-500' : 'border-coffee-200'
+                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm uppercase focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                          errors.cardName ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                         }`}
                         id="checkout-cardName"
                         disabled={isProcessing}
@@ -363,15 +363,15 @@ export default function CheckoutModal({
 
                     {/* Card Number */}
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 block">Número de Tarjeta:</label>
+                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Número de Tarjeta:</label>
                       <div className="relative">
                         <input
                           type="text"
                           value={cardNumber}
                           onChange={handleCardNumberChange}
                           placeholder="4500 1234 5678 9000"
-                          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                            errors.cardNumber ? 'border-red-500' : 'border-coffee-200'
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.cardNumber ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
                           id="checkout-cardNumber"
                           disabled={isProcessing}
@@ -386,14 +386,14 @@ export default function CheckoutModal({
                     {/* Expiry and CVV */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="font-semibold text-coffee-700 block">Fecha Expiración (MM/AA):</label>
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Fecha Expiración (MM/AA):</label>
                         <input
                           type="text"
                           value={cardExpiry}
                           onChange={handleExpiryChange}
                           placeholder="12/28"
-                          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                            errors.cardExpiry ? 'border-red-500' : 'border-coffee-200'
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.cardExpiry ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
                           id="checkout-cardExpiry"
                           disabled={isProcessing}
@@ -401,17 +401,17 @@ export default function CheckoutModal({
                         {errors.cardExpiry && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.cardExpiry}</p>}
                       </div>
                       <div className="space-y-1.5">
-                        <label className="font-semibold text-coffee-700 block">Código CVV:</label>
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Código CVV:</label>
                         <input
                           type="password"
-                          value={cardCvv}
+                           value={cardCvv}
                           onChange={(e) => {
                             const val = e.target.value.replace(/\D/g, '').slice(0, 4);
                             setCardCvv(val);
                           }}
                           placeholder="•••"
-                          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 text-coffee-900 ${
-                            errors.cardCvv ? 'border-red-500' : 'border-coffee-200'
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.cardCvv ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
                           id="checkout-cardCvv"
                           disabled={isProcessing}
@@ -422,10 +422,10 @@ export default function CheckoutModal({
                   </div>
 
                   {/* Actions buttons */}
-                  <div className="flex gap-3 pt-4 border-t border-coffee-200/50">
+                  <div className="flex gap-3 pt-4 border-t border-coffee-200/50 dark:border-coffee-800/50">
                     <button
                       onClick={() => setStep(1)}
-                      className="flex-1 py-3 border border-coffee-300 text-coffee-700 font-semibold rounded-xl text-sm hover:bg-coffee-150 transition-all"
+                      className="flex-1 py-3 border border-coffee-300 dark:border-coffee-700 text-coffee-700 dark:text-coffee-300 font-semibold rounded-xl text-sm hover:bg-coffee-150 dark:hover:bg-coffee-900 transition-all"
                       disabled={isProcessing}
                     >
                       Atrás
@@ -465,36 +465,36 @@ export default function CheckoutModal({
                   </motion.div>
 
                   <div className="space-y-2">
-                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-coffee-900">¡Pedido Confirmado!</h2>
-                    <p className="text-sm text-coffee-600">Muchas gracias por confiar en Albor Café.</p>
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-coffee-900 dark:text-coffee-50">¡Pedido Confirmado!</h2>
+                    <p className="text-sm text-coffee-600 dark:text-coffee-300">Muchas gracias por confiar en Albor Café.</p>
                   </div>
 
                   {/* Order Receipt Card */}
-                  <div className="bg-coffee-100/60 rounded-2xl p-5 border border-coffee-200/50 w-full text-left text-xs font-sans space-y-4">
-                    <div className="flex justify-between items-center font-mono text-[10px] text-coffee-500 pb-3 border-b border-coffee-200/40">
+                  <div className="bg-coffee-100/60 dark:bg-coffee-900/30 rounded-2xl p-5 border border-coffee-200/50 dark:border-coffee-800/50 w-full text-left text-xs font-sans space-y-4">
+                    <div className="flex justify-between items-center font-mono text-[10px] text-coffee-500 pb-3 border-b border-coffee-200/40 dark:border-coffee-800/40">
                       <span>NÚMERO DE PEDIDO:</span>
-                      <b className="text-coffee-900 font-bold">{generatedOrderId}</b>
+                      <b className="text-coffee-900 dark:text-coffee-100 font-bold">{generatedOrderId}</b>
                     </div>
 
-                    <div className="space-y-2 text-coffee-700">
+                    <div className="space-y-2 text-coffee-700 dark:text-coffee-300">
                       <p><b>Destinatario:</b> {fullName}</p>
                       <p><b>Dirección:</b> {street}, {city} ({postalCode})</p>
                       <p><b>Email de notificación:</b> {email}</p>
                     </div>
 
-                    <div className="border-t border-coffee-200/40 pt-3 space-y-1">
+                    <div className="border-t border-coffee-200/40 dark:border-coffee-800/40 pt-3 space-y-1">
                       <p className="flex justify-between">
                         <span>Método de entrega:</span>
-                        <span className="font-semibold text-coffee-900">Envío Express de Frescura</span>
+                        <span className="font-semibold text-coffee-900 dark:text-coffee-100">Envío Express de Frescura</span>
                       </p>
                       <p className="flex justify-between">
                         <span>Fecha estimada de llegada:</span>
-                        <span className="font-semibold text-coffee-900">En 3 a 5 días hábiles</span>
+                        <span className="font-semibold text-coffee-900 dark:text-coffee-100">En 3 a 5 días hábiles</span>
                       </p>
                     </div>
 
                     {isSubscriptionOnly && (
-                      <div className="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl flex gap-2 text-[11px] text-amber-900 mt-2 font-sans">
+                      <div className="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl flex gap-2 text-[11px] text-amber-900 dark:text-amber-400 mt-2 font-sans">
                         <Calendar className="h-4 w-4 text-amber-700 flex-shrink-0 mt-0.5" />
                         <div>
                           <p className="font-bold">Suscripción Mensual Activa</p>
@@ -506,7 +506,7 @@ export default function CheckoutModal({
 
                   <button
                     onClick={onClose}
-                    className="w-full py-3 bg-coffee-800 hover:bg-coffee-700 text-coffee-50 font-bold rounded-xl text-sm transition-all"
+                    className="w-full py-3 bg-coffee-800 dark:bg-coffee-750 hover:bg-coffee-700 dark:hover:bg-coffee-650 text-coffee-50 font-bold rounded-xl text-sm transition-all"
                     id="checkout-success-continue-btn"
                   >
                     Cerrar y Volver
@@ -518,59 +518,59 @@ export default function CheckoutModal({
 
             {/* Right Column: Order Summary (Visible during step 1 & 2 only) */}
             {step !== 3 && (
-              <div className="w-full lg:w-80 bg-coffee-100/50 p-6 sm:p-8 flex flex-col justify-between font-sans">
+              <div className="w-full lg:w-80 bg-coffee-100/50 dark:bg-coffee-900/30 p-6 sm:p-8 flex flex-col justify-between font-sans">
                 <div>
-                  <h3 className="font-serif text-lg font-bold text-coffee-900 pb-3 border-b border-coffee-200/50">Resumen del Pedido</h3>
+                  <h3 className="font-serif text-lg font-bold text-coffee-900 dark:text-coffee-100 pb-3 border-b border-coffee-200/50 dark:border-coffee-800/50">Resumen del Pedido</h3>
                   
                   {/* Subscription summary or Cart items */}
                   {isSubscriptionOnly ? (
                     <div className="py-4 space-y-3.5">
-                      <div className="flex gap-3 p-3 bg-coffee-50 border border-coffee-200/40 rounded-xl">
-                        <ShoppingBag className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                      <div className="flex gap-3 p-3 bg-coffee-50 dark:bg-coffee-950 border border-coffee-200/40 dark:border-coffee-850/45 rounded-xl">
+                        <ShoppingBag className="h-5 w-5 text-amber-600 dark:text-amber-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-bold text-coffee-900 text-xs">Membresía Club Albor</p>
-                          <p className="text-[10px] text-coffee-500 font-mono mt-0.5 uppercase">
+                          <p className="font-bold text-coffee-900 dark:text-coffee-100 text-xs">Membresía Club Albor</p>
+                          <p className="text-[10px] text-coffee-500 dark:text-coffee-400 font-mono mt-0.5 uppercase">
                             Frecuencia: {subscriptionConfig.frequency === 'weekly' ? 'Semanal' : subscriptionConfig.frequency === 'biweekly' ? 'Quincenal' : 'Mensual'}
                           </p>
-                          <p className="text-[10px] text-coffee-500 font-mono">
+                          <p className="text-[10px] text-coffee-500 dark:text-coffee-400 font-mono">
                             Peso: {subscriptionConfig.quantity}g | {subscriptionConfig.grindSize}
                           </p>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="py-4 max-h-[250px] overflow-y-auto space-y-3 pr-2 border-b border-coffee-200/30">
+                    <div className="py-4 max-h-[250px] overflow-y-auto space-y-3 pr-2 border-b border-coffee-200/30 dark:border-coffee-800/30">
                       {cart.map((item, idx) => (
-                        <div key={idx} className="flex justify-between items-start text-xs text-coffee-700 gap-2">
+                        <div key={idx} className="flex justify-between items-start text-xs text-coffee-700 dark:text-coffee-300 gap-2">
                           <div className="flex-1">
-                            <p className="font-bold text-coffee-900">{item.coffee.name}</p>
-                            <p className="text-[10px] text-coffee-500 font-mono mt-0.5">{item.grindSize} (x{item.quantity})</p>
+                            <p className="font-bold text-coffee-900 dark:text-coffee-100">{item.coffee.name}</p>
+                            <p className="text-[10px] text-coffee-500 dark:text-coffee-400 font-mono mt-0.5">{item.grindSize} (x{item.quantity})</p>
                           </div>
-                          <span className="font-mono text-coffee-900 font-semibold">${(item.coffee.price * item.quantity).toFixed(2)}</span>
+                          <span className="font-mono text-coffee-900 dark:text-coffee-100 font-semibold">${(item.coffee.price * item.quantity).toFixed(2)}</span>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {/* Pricing Breakdown */}
-                  <div className="py-4 space-y-2.5 text-xs text-coffee-650">
+                  <div className="py-4 space-y-2.5 text-xs text-coffee-650 dark:text-coffee-350">
                     {/* Subtotal */}
                     <div className="flex justify-between">
                       <span>Subtotal de granos:</span>
-                      <span className="font-mono text-coffee-900 font-bold">${subtotal.toFixed(2)}</span>
+                      <span className="font-mono text-coffee-900 dark:text-coffee-100 font-bold">${subtotal.toFixed(2)}</span>
                     </div>
 
                     {/* Shipping */}
                     <div className="flex justify-between">
                       <span>Costo de envío:</span>
-                      <span className="font-mono text-coffee-900">
-                        {shippingCost === 0 ? <span className="text-amber-700 font-bold">Gratis</span> : `$${shippingCost.toFixed(2)}`}
+                      <span className="font-mono text-coffee-900 dark:text-coffee-100">
+                        {shippingCost === 0 ? <span className="text-amber-700 dark:text-amber-400 font-bold">Gratis</span> : `$${shippingCost.toFixed(2)}`}
                       </span>
                     </div>
 
                     {/* Subscription Monthly cost */}
                     {isSubscriptionOnly && (
-                      <div className="flex justify-between border-t border-dashed border-coffee-200/60 pt-2 text-amber-800 font-semibold">
+                      <div className="flex justify-between border-t border-dashed border-coffee-200/60 dark:border-coffee-800/60 pt-2 text-amber-800 dark:text-amber-400 font-semibold">
                         <span>Cargo mensual Club:</span>
                         <span className="font-mono">${subscriptionPrice.toFixed(2)}</span>
                       </div>
@@ -579,14 +579,14 @@ export default function CheckoutModal({
                 </div>
 
                 {/* Big Grand Total */}
-                <div className="border-t border-coffee-200 pt-5 mt-4">
+                <div className="border-t border-coffee-200 dark:border-coffee-850 pt-5 mt-4">
                   <div className="flex justify-between items-end">
-                    <span className="text-xs text-coffee-500 font-bold uppercase">TOTAL DE HOY:</span>
-                    <span className="text-2xl font-bold font-mono text-coffee-900">${total.toFixed(2)}</span>
+                    <span className="text-xs text-coffee-500 dark:text-coffee-400 font-bold uppercase">TOTAL DE HOY:</span>
+                    <span className="text-2xl font-bold font-mono text-coffee-900 dark:text-coffee-100">${total.toFixed(2)}</span>
                   </div>
                   
                   {isSubscriptionOnly && (
-                    <p className="text-[9px] text-coffee-400 mt-2 font-mono leading-normal">
+                    <p className="text-[9px] text-coffee-400 dark:text-coffee-500 mt-2 font-mono leading-normal">
                       * El cargo de ${subscriptionPrice.toFixed(2)} se debitará mensualmente de forma recurrente. Puedes pausar o cancelar sin cargo.
                     </p>
                   )}
