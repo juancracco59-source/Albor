@@ -185,7 +185,16 @@ export default function App() {
 
   // Complete Simulated Checkout (saves subscription and/or logs purchases)
   const handleCompleteCheckout = (
-    shippingAddress: { fullName: string; street: string; city: string; postalCode: string },
+    shippingAddress: {
+      fullName: string;
+      street: string;
+      city: string;
+      province?: string;
+      locality?: string;
+      postalCode: string;
+      phone?: string;
+      email?: string;
+    },
     newSubscription: { config: SubscriptionConfig; price: number } | null
   ) => {
     const todayStr = new Date().toISOString().split('T')[0];

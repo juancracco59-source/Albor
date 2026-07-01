@@ -53,7 +53,11 @@ export interface Order {
     fullName: string;
     street: string;
     city: string;
+    province?: string;
+    locality?: string;
     postalCode: string;
+    phone?: string;
+    email?: string;
   };
   status: 'pending' | 'shipped' | 'delivered';
 }

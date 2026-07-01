@@ -11,7 +11,16 @@ interface CheckoutModalProps {
   subscriptionPrice: number;
   userEmail: string; // From metadata
   onCompleteCheckout: (
-    shippingAddress: { fullName: string; street: string; city: string; postalCode: string },
+    shippingAddress: {
+      fullName: string;
+      street: string;
+      city: string;
+      province?: string;
+      locality?: string;
+      postalCode: string;
+      phone?: string;
+      email?: string;
+    },
     newSubscription: { config: SubscriptionConfig; price: number } | null
   ) => void;
   showNotification: (message: string) => void;
@@ -35,7 +44,8 @@ export default function CheckoutModal({
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState(userEmail || '');
   const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
+  const [province, setProvince] = useState('');
+  const [locality, setLocality] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -81,7 +91,8 @@ export default function CheckoutModal({
     if (!fullName.trim()) newErrors.fullName = 'El nombre completo es requerido';
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Introduce un email válido';
     if (!street.trim()) newErrors.street = 'La dirección es requerida';
-    if (!city.trim()) newErrors.city = 'La ciudad es requerida';
+    if (!province.trim()) newErrors.province = 'La provincia es requerida';
+    if (!locality.trim()) newErrors.locality = 'La localidad es requerida';
     if (!postalCode.trim()) newErrors.postalCode = 'El código postal es requerido';
     if (!phone.trim()) newErrors.phone = 'El teléfono es requerido';
 
@@ -122,7 +133,7 @@ export default function CheckoutModal({
 
       // Trigger state updates
       onCompleteCheckout(
-        { fullName, street, city, postalCode },
+        { fullName, street, city: `${locality}, ${province}`, province, locality, postalCode, phone, email },
         subscriptionConfig ? { config: subscriptionConfig, price: subscriptionPrice } : null
       );
     }, 2500);
@@ -199,61 +210,96 @@ export default function CheckoutModal({
                       {errors.fullName && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.fullName}</p>}
                     </div>
 
-                    {/* Email */}
-                    <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Correo Electrónico:</label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="ejemplo@correo.com"
-                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
-                          errors.email ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
-                        }`}
-                        id="checkout-email"
-                      />
-                      {errors.email && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.email}</p>}
-                    </div>
-
-                    {/* Street address */}
-                    <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Dirección de Entrega:</label>
-                      <input
-                        type="text"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
-                        placeholder="Av. Santa Fe 1234, Piso 4 B"
-                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
-                          errors.street ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
-                        }`}
-                        id="checkout-street"
-                      />
-                      {errors.street && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.street}</p>}
-                    </div>
-
-                    {/* City and Postal Code */}
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Email & Phone side-by-side */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Ciudad / Provincia:</label>
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Correo Electrónico:</label>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="ejemplo@correo.com"
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.email ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
+                          }`}
+                          id="checkout-email"
+                        />
+                        {errors.email && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.email}</p>}
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Número Telefónico / Celular:</label>
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="+54 11 5555 1234"
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.phone ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
+                          }`}
+                          id="checkout-phone"
+                        />
+                        {errors.phone && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.phone}</p>}
+                      </div>
+                    </div>
+
+                    {/* Province & Locality side-by-side */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Provincia:</label>
                         <input
                           type="text"
-                          value={city}
-                          onChange={(e) => setCity(e.target.value)}
-                          placeholder="CABA"
+                          value={province}
+                          onChange={(e) => setProvince(e.target.value)}
+                          placeholder="Buenos Aires"
                           className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
-                            errors.city ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
+                            errors.province ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
-                          id="checkout-city"
+                          id="checkout-province"
                         />
-                        {errors.city && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.city}</p>}
+                        {errors.province && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.province}</p>}
                       </div>
+
+                      <div className="space-y-1.5">
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Localidad:</label>
+                        <input
+                          type="text"
+                          value={locality}
+                          onChange={(e) => setLocality(e.target.value)}
+                          placeholder="Mar del Plata"
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.locality ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
+                          }`}
+                          id="checkout-locality"
+                        />
+                        {errors.locality && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.locality}</p>}
+                      </div>
+                    </div>
+
+                    {/* Street address & Postal Code side-by-side */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="sm:col-span-2 space-y-1.5">
+                        <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Dirección de Entrega:</label>
+                        <input
+                          type="text"
+                          value={street}
+                          onChange={(e) => setStreet(e.target.value)}
+                          placeholder="Av. Colón 1234, Piso 2 A"
+                          className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
+                            errors.street ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
+                          }`}
+                          id="checkout-street"
+                        />
+                        {errors.street && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.street}</p>}
+                      </div>
+
                       <div className="space-y-1.5">
                         <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Código Postal:</label>
                         <input
                           type="text"
                           value={postalCode}
                           onChange={(e) => setPostalCode(e.target.value)}
-                          placeholder="C1059"
+                          placeholder="B7600"
                           className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
                             errors.postalCode ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
                           }`}
@@ -261,22 +307,6 @@ export default function CheckoutModal({
                         />
                         {errors.postalCode && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.postalCode}</p>}
                       </div>
-                    </div>
-
-                    {/* Phone number */}
-                    <div className="space-y-1.5">
-                      <label className="font-semibold text-coffee-700 dark:text-coffee-300 block">Teléfono de Contacto:</label>
-                      <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+54 11 5555 1234"
-                        className={`w-full px-4 py-3 bg-white dark:bg-coffee-900 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-coffee-500 dark:focus:ring-coffee-400 text-coffee-900 dark:text-coffee-100 ${
-                          errors.phone ? 'border-red-500' : 'border-coffee-200 dark:border-coffee-800'
-                        }`}
-                        id="checkout-phone"
-                      />
-                      {errors.phone && <p className="text-red-500 text-[10px] font-mono mt-1">{errors.phone}</p>}
                     </div>
                   </div>
 
@@ -478,7 +508,7 @@ export default function CheckoutModal({
 
                     <div className="space-y-2 text-coffee-700 dark:text-coffee-300">
                       <p><b>Destinatario:</b> {fullName}</p>
-                      <p><b>Dirección:</b> {street}, {city} ({postalCode})</p>
+                      <p><b>Dirección:</b> {street}, {locality}, {province} ({postalCode})</p>
                       <p><b>Email de notificación:</b> {email}</p>
                     </div>
 
