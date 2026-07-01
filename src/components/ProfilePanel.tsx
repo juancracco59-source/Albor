@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Subscription, Order, SubscriptionConfig } from '../types';
-import { Sparkles, Calendar, Coffee, Package, Check, X, CreditCard, RotateCcw, AlertCircle, ShoppingBag, ArrowUpRight } from 'lucide-react';
+import { 
+  Sparkles, Calendar, Coffee, Package, Check, X, CreditCard, RotateCcw, 
+  AlertCircle, ShoppingBag, ArrowUpRight, Lock, Shield, TrendingUp, Users, 
+  DollarSign, CheckCircle2, RefreshCw, Trash2, Edit3 
+} from 'lucide-react';
 
 interface ProfilePanelProps {
   subscription: Subscription | null;
@@ -11,6 +15,7 @@ interface ProfilePanelProps {
   onUpdateSubscriptionGrind: (grind: SubscriptionConfig['grindSize']) => void;
   onNavigateToTab: (tab: 'inicio' | 'tienda' | 'suscripcion' | 'perfil') => void;
   userEmail: string;
+  onUpdateOrders?: (orders: Order[]) => void;
 }
 
 export default function ProfilePanel({
@@ -21,9 +26,17 @@ export default function ProfilePanel({
   onUpdateSubscriptionGrind,
   onNavigateToTab,
   userEmail,
+  onUpdateOrders,
 }: ProfilePanelProps) {
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [isChangingGrind, setIsChangingGrind] = useState(false);
+
+  // Administrative login states
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminUser, setAdminUser] = useState('');
+  const [adminPass, setAdminPass] = useState('');
+  const [adminError, setAdminError] = useState('');
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   const getStatusColor = (status: Subscription['status']) => {
     if (status === 'active') return 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border-emerald-500/20 dark:border-emerald-500/30';
@@ -55,6 +68,211 @@ export default function ProfilePanel({
     achocolatado: 'Dulces y Tradicionales (Balanceado)',
     exotico: 'Exóticos y Experimentales (Arriesgados)',
   };
+
+  if (isAdminAuthenticated) {
+    const totalSales = orders.reduce((sum, o) => sum + o.total, 0);
+    const avgTicket = orders.length > 0 ? totalSales / orders.length : 0;
+    const subscriberCount = subscription && subscription.status === 'active' ? 125 : 124;
+
+    const handleCycleStatus = (orderId: string) => {
+      if (!onUpdateOrders) return;
+      const updated = orders.map(o => {
+        if (o.id === orderId) {
+          const nextStatus: Order['status'] = 
+            o.status === 'pending' ? 'shipped' :
+            o.status === 'shipped' ? 'delivered' : 'pending';
+          return { ...o, status: nextStatus };
+        }
+        return o;
+      });
+      onUpdateOrders(updated);
+    };
+
+    const handleDeleteOrder = (orderId: string) => {
+      if (!onUpdateOrders) return;
+      const updated = orders.filter(o => o.id !== orderId);
+      onUpdateOrders(updated);
+    };
+
+    const handleSimulateNewOrder = () => {
+      if (!onUpdateOrders) return;
+      const randomId = 'ALB-' + Math.floor(100000 + Math.random() * 900000);
+      const mockOrder: Order = {
+        id: randomId,
+        date: new Date().toISOString().split('T')[0],
+        items: [
+          {
+            name: 'Colombia Huila Ancestral',
+            quantity: Math.floor(Math.random() * 2) + 1,
+            price: 18.5,
+            grindSize: 'Espresso'
+          }
+        ],
+        total: 18.5 * (Math.floor(Math.random() * 2) + 1),
+        subscription: undefined,
+        shippingAddress: {
+          fullName: ['Carlos Pérez', 'Sofía Rodríguez', 'Mateo Giménez', 'Lucía Díaz'][Math.floor(Math.random() * 4)],
+          street: ['Av. Libertador 4500', 'San Martín 123', 'Calle 50 nro 620', 'Pampa 3320'][Math.floor(Math.random() * 4)],
+          city: 'Buenos Aires',
+          province: ['Buenos Aires', 'CABA', 'Córdoba', 'Santa Fe'][Math.floor(Math.random() * 4)],
+          locality: ['La Plata', 'Palermo', 'Rosario', 'Córdoba Capital'][Math.floor(Math.random() * 4)],
+          postalCode: 'B1900',
+          phone: '+54 9 11 ' + Math.floor(10000000 + Math.random() * 90000000),
+          email: 'usuario.demo' + Math.floor(Math.random() * 100) + '@gmail.com',
+        },
+        status: 'pending'
+      };
+      onUpdateOrders([mockOrder, ...orders]);
+    };
+
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        {/* Header Admin */}
+        <div className="bg-coffee-900 text-coffee-50 rounded-3xl p-6 sm:p-8 shadow-xl border border-coffee-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#FAF7F2_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          
+          <div className="space-y-2 z-10">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-amber-400" />
+              <span className="font-mono text-xs text-amber-400 tracking-widest uppercase font-bold">PANEL DE ADMINISTRACIÓN CENTRAL</span>
+            </div>
+            <h1 className="font-serif text-3xl font-bold">Consola de Control Albor</h1>
+            <p className="text-sm text-coffee-300 font-sans">
+              Autenticado como: <span className="font-bold text-amber-400 font-mono">Admin</span>
+            </p>
+          </div>
+          <button
+            onClick={() => setIsAdminAuthenticated(false)}
+            className="px-5 py-2.5 bg-coffee-800 hover:bg-coffee-750 text-coffee-100 text-xs font-semibold rounded-xl transition-all border border-coffee-700 z-10 shadow-md"
+            id="admin-logout-btn"
+          >
+            Salir del Modo Admin
+          </button>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-white dark:bg-coffee-950 border border-coffee-200 dark:border-coffee-850 p-6 rounded-2xl shadow-sm flex items-center gap-4">
+            <div className="p-3.5 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-xl">
+              <DollarSign className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-coffee-400 dark:text-coffee-500 uppercase">Ventas Totales (Sim.)</p>
+              <h3 className="text-2xl font-bold text-coffee-900 dark:text-coffee-100 font-mono mt-0.5">${totalSales.toFixed(2)}</h3>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-coffee-950 border border-coffee-200 dark:border-coffee-850 p-6 rounded-2xl shadow-sm flex items-center gap-4">
+            <div className="p-3.5 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-xl">
+              <Users className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-coffee-400 dark:text-coffee-500 uppercase">Miembros Club (Sim.)</p>
+              <h3 className="text-2xl font-bold text-coffee-900 dark:text-coffee-100 font-mono mt-0.5">{subscriberCount}</h3>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-coffee-950 border border-coffee-200 dark:border-coffee-850 p-6 rounded-2xl shadow-sm flex items-center gap-4">
+            <div className="p-3.5 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-xl">
+              <TrendingUp className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-coffee-400 dark:text-coffee-500 uppercase">Ticket Promedio</p>
+              <h3 className="text-2xl font-bold text-coffee-900 dark:text-coffee-100 font-mono mt-0.5">${avgTicket.toFixed(2)}</h3>
+            </div>
+          </div>
+        </div>
+
+        {/* Order Admin Table */}
+        <div className="bg-white dark:bg-coffee-950/20 border border-coffee-200 dark:border-coffee-850 rounded-3xl p-6 space-y-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h2 className="font-serif text-xl font-bold text-coffee-900 dark:text-coffee-100">Gestión de Pedidos & Envíos</h2>
+              <p className="text-xs text-coffee-500 dark:text-coffee-400 mt-0.5">Control y actualización de pedidos realizados en esta simulación.</p>
+            </div>
+            <button
+              onClick={handleSimulateNewOrder}
+              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-coffee-950 text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5"
+              id="simulate-order-btn"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+              Simular Nuevo Pedido
+            </button>
+          </div>
+
+          {orders.length === 0 ? (
+            <div className="text-center p-12 border border-dashed border-coffee-200 dark:border-coffee-850 rounded-2xl text-coffee-500 dark:text-coffee-400 text-sm">
+              No hay pedidos simulados en el sistema. Haz clic en "Simular Nuevo Pedido" para comenzar.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-coffee-200 dark:border-coffee-850 text-coffee-400 font-mono uppercase text-[10px] tracking-wider">
+                    <th className="py-3 px-4">Pedido / Fecha</th>
+                    <th className="py-3 px-4">Cliente / Contacto</th>
+                    <th className="py-3 px-4">Dirección</th>
+                    <th className="py-3 px-4">Productos / Total</th>
+                    <th className="py-3 px-4 text-center">Estado</th>
+                    <th className="py-3 px-4 text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-coffee-100 dark:divide-coffee-900/50">
+                  {orders.map((o) => (
+                    <tr key={o.id} className="hover:bg-coffee-50/50 dark:hover:bg-coffee-900/10 transition-colors">
+                      <td className="py-4 px-4 font-sans">
+                        <span className="font-mono font-bold text-coffee-900 dark:text-coffee-100 block">{o.id}</span>
+                        <span className="text-[10px] text-coffee-400 font-mono block mt-0.5">{o.date}</span>
+                      </td>
+                      <td className="py-4 px-4">
+                        <span className="font-semibold text-coffee-900 dark:text-coffee-100 block">{o.shippingAddress.fullName}</span>
+                        <span className="text-[10px] text-coffee-400 font-mono block mt-0.5">{o.shippingAddress.email || 'Sin email'}</span>
+                        <span className="text-[10px] text-coffee-400 font-mono block">{o.shippingAddress.phone || 'Sin tel'}</span>
+                      </td>
+                      <td className="py-4 px-4 text-coffee-750 dark:text-coffee-300 max-w-[200px] truncate">
+                        <span className="block">{o.shippingAddress.street}</span>
+                        <span className="text-[10px] text-coffee-400 block mt-0.5">
+                          {o.shippingAddress.locality || o.shippingAddress.city}, {o.shippingAddress.province || ''} ({o.shippingAddress.postalCode})
+                        </span>
+                      </td>
+                      <td className="py-4 px-4 font-mono">
+                        <div className="text-coffee-800 dark:text-coffee-200 max-w-[150px] truncate">
+                          {o.items.map((it, idx) => (
+                            <span key={idx} className="block text-[11px] font-sans">
+                              {it.name} (x{it.quantity})
+                            </span>
+                          ))}
+                        </div>
+                        <span className="font-bold text-coffee-900 dark:text-coffee-100 block mt-1">${o.total.toFixed(2)}</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <button
+                          onClick={() => handleCycleStatus(o.id)}
+                          title="Haz clic para avanzar de estado"
+                          className={`px-2.5 py-1 border rounded-md font-medium text-[10px] tracking-wide uppercase transition-all ${getOrderBadge(o.status)} hover:ring-2 hover:ring-amber-400`}
+                        >
+                          {getOrderBadgeLabel(o.status)} 🔄
+                        </button>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <button
+                          onClick={() => handleDeleteOrder(o.id)}
+                          className="p-1.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-all"
+                          title="Eliminar registro"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
@@ -356,6 +574,112 @@ export default function ProfilePanel({
           </div>
         </div>
       </div>
+
+      {/* Discrete administrative portal link */}
+      <div className="flex justify-center pt-8 border-t border-coffee-200/30 dark:border-coffee-800/10">
+        <button 
+          onClick={() => {
+            setShowAdminLogin(true);
+            setAdminError('');
+            setAdminUser('');
+            setAdminPass('');
+          }}
+          className="text-[10px] font-mono text-coffee-400 hover:text-amber-600 dark:text-coffee-600 dark:hover:text-amber-400 flex items-center gap-1.5 transition-colors duration-200"
+          id="admin-portal-trigger"
+        >
+          <Lock className="h-3 w-3" />
+          <span>Acceso de Administración</span>
+        </button>
+      </div>
+
+      {/* Admin Login Modal */}
+      <AnimatePresence>
+        {showAdminLogin && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-coffee-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              className="bg-white dark:bg-coffee-950 border border-coffee-200 dark:border-coffee-850 w-full max-w-sm rounded-3xl p-6 sm:p-8 shadow-2xl relative space-y-6 text-left"
+            >
+              <button
+                onClick={() => setShowAdminLogin(false)}
+                className="absolute top-4 right-4 p-1.5 rounded-lg text-coffee-400 hover:text-coffee-600 dark:hover:text-coffee-300 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="text-center space-y-2">
+                <div className="h-12 w-12 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-full flex items-center justify-center mx-auto">
+                  <Shield className="h-6 w-6" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-coffee-900 dark:text-coffee-100">Acceso Restringido</h3>
+                <p className="text-xs text-coffee-500 dark:text-coffee-400 font-sans">
+                  Ingrese las credenciales autorizadas de administrador.
+                </p>
+              </div>
+
+              {adminError && (
+                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-700 dark:text-rose-400 text-xs text-center font-medium font-sans">
+                  {adminError}
+                </div>
+              )}
+
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (adminUser === 'Admin' && adminPass === 'hola1234') {
+                    setIsAdminAuthenticated(true);
+                    setShowAdminLogin(false);
+                    setAdminError('');
+                  } else {
+                    setAdminError('Credenciales incorrectas. Verifique e intente nuevamente.');
+                  }
+                }}
+                className="space-y-4 text-xs font-sans"
+              >
+                <div className="space-y-1.5">
+                  <label className="font-bold text-coffee-700 dark:text-coffee-300">Nombre de Usuario:</label>
+                  <input
+                    type="text"
+                    value={adminUser}
+                    onChange={(e) => setAdminUser(e.target.value)}
+                    placeholder="Ej: Admin"
+                    className="w-full px-4 py-3 bg-coffee-50 dark:bg-coffee-900 border border-coffee-200 dark:border-coffee-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-coffee-900 dark:text-coffee-100"
+                    id="admin-user-input"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="font-bold text-coffee-700 dark:text-coffee-300">Contraseña:</label>
+                  <input
+                    type="password"
+                    value={adminPass}
+                    onChange={(e) => setAdminPass(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full px-4 py-3 bg-coffee-50 dark:bg-coffee-900 border border-coffee-200 dark:border-coffee-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-coffee-900 dark:text-coffee-100"
+                    id="admin-pass-input"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-coffee-900 hover:bg-coffee-850 dark:bg-amber-500 dark:hover:bg-amber-400 text-coffee-50 dark:text-coffee-950 font-bold rounded-xl transition-all shadow-md uppercase tracking-wider text-xs"
+                >
+                  Verificar Credenciales
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
