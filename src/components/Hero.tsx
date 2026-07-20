@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Coffee, ShieldCheck, Truck, Sparkles, ChevronRight, Star, Heart } from 'lucide-react';
+import ContactForm from './ContactForm';
 
 interface HeroProps {
   onNavigate: (tab: 'inicio' | 'tienda' | 'suscripcion' | 'perfil') => void;
@@ -296,6 +297,9 @@ export default function Hero({ onNavigate }: HeroProps) {
           </div>
         </div>
       </section>
+
+      {/* Functional Contact Form Section */}
+      <ContactForm />
     </div>
   );
 }
